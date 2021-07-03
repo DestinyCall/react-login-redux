@@ -2,46 +2,40 @@ import React, { Component } from 'react';
 import { AppService } from 'services/app.service';
 import * as globalActions from 'redux/actions/global.actions';
 import { Context } from 'redux/store.provider';
-import { IMerchant } from 'redux/states/merchant.state';
+import { connect } from 'redux/meta.connect';
+import { withRouter } from 'react-router-dom';
+import { IGlobalState } from 'redux/states/global.state';
 
-export default class Auth extends Component<any, any> {
+class Auth extends Component<any, any> {
   state: any = {
-    phone: '',
-    password: '',
+    phone: '9161792121',
+    password: '9161792121',
     countryDialCode: '+91',
   };
 
   constructor(props: any) {
     super(props);
-    this.fillDetails = this.fillDetails.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.merchantLogin = this.merchantLogin.bind(this);
   }
 
-  componentDidMount() {
-    const { state } = this.context;
-    if (state.merchant) {
-      console.log(state.merchant);
-    }
+  handleChange(e: any) {
+    const {
+      target: { name, value },
+    } = e;
+
+    this.setState({
+      [name]: value,
+    });
   }
 
-  fillDetails(state: any) {
-    const merchant: IMerchant = state.merchant;
-    if (merchant) {
-      console.log(merchant);
-    }
-  }
   merchantLogin(e: any) {
     e.preventDefault();
-    console.log(this.state);
-
-    const { state, dispatch } = this.context;
-
     let merchantLogin: any = {
       countryDialCode: this.state.countryDialCode,
       phone: this.state.phone,
       password: this.state.password,
     };
-
     AppService.Instance.merchantLogin(
       merchantLogin.countryDialCode,
       merchantLogin.phone,
@@ -51,13 +45,15 @@ export default class Auth extends Component<any, any> {
         if (response.status === 200) {
           response.data.token = {
             access: 'auth',
-            token: state.user.token.token,
+            token: response.headers['x-auth'],
           };
-
+          const { dispatch } = this.context;
           dispatch(new globalActions.MerchantLogin(response.data));
 
-          this.setState({ updateStatus: 200 }, () =>
-            console.log('Login Success')
+          this.setState(
+            { updateStatus: 200 },
+            () => this.props.history.push('/dashbaord')
+            //console.log('Login Success')
           );
         }
       })
@@ -73,32 +69,38 @@ export default class Auth extends Component<any, any> {
             <div className='input-field col s4'>
               <i className='material-icons prefix'>home</i>
               <input
-                id='icon_prefix'
+                id='countryDialCode'
+                name='countryDialCode'
                 type='text'
                 className='validate'
-                value='+91'
+                defaultValue={this.state.countryDialCode}
+                onChange={this.handleChange}
               ></input>
-              <label htmlFor='icon_prefix'></label>
+              <label htmlFor='icon_countryDialCode'></label>
             </div>
             <div className='input-field col s4'>
               <i className='material-icons prefix'>phone</i>
               <input
-                id='icon_telephone'
+                id='phone'
+                name='phone'
                 type='tel'
                 className='validate'
-                value='9161792121'
+                defaultValue={this.state.phone}
+                onChange={this.handleChange}
               ></input>
-              <label htmlFor='icon_telephone'></label>
+              <label htmlFor='icon_phone'></label>
             </div>
             <div className='input-field col s4'>
               <i className='material-icons prefix'>password</i>
               <input
-                id='icon_secret'
+                id='password'
+                name='password'
                 type='password'
                 className='validate'
-                value='9161792121'
+                defaultValue={this.state.password}
+                onChange={this.handleChange}
               ></input>
-              <label htmlFor='icon_telephone'></label>
+              <label htmlFor='icon_password'></label>
             </div>
             <div className='row'>
               <button
@@ -116,4 +118,17 @@ export default class Auth extends Component<any, any> {
     );
   }
 }
+
+const mapStateToProps = (state: IGlobalState) => {
+  return {
+    merchant: state.merchant,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    dispatchUpdate: (dispatchObj: any) => dispatch(dispatchObj),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Auth));
 Auth.contextType = Context;

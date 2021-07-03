@@ -1,6 +1,7 @@
 import { IMerchant } from 'redux/states/merchant.state';
 
 export const Merchant_Login = '[MERCHANT] Merchant Login';
+export const Get_Merchant_Details = '[MERCHANT] Get Merchant Details';
 
 export class MerchantLogin {
   readonly type: string = Merchant_Login;
@@ -9,5 +10,4 @@ export class MerchantLogin {
     this.payload = payload;
   }
 }
-
 export type Actions = MerchantLogin;

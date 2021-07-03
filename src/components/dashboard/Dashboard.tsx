@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
-class Dashboard extends Component {
+import { Context } from 'redux/store.provider';
+import { connect } from 'redux/meta.connect';
+import { withRouter } from 'react-router-dom';
+import { IGlobalState } from 'redux/states/global.state';
+
+class Dashboard extends Component<any, any> {
   render() {
+    const { state } = this.context;
+    console.log(state.merchant);
     return (
       <div className='dashboard'>
         <div id='dashdata'>Dashboard</div>
@@ -8,4 +15,19 @@ class Dashboard extends Component {
     );
   }
 }
-export default Dashboard;
+const mapStateToProps = (state: IGlobalState) => {
+  return {
+    merchant: state.merchant,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    dispatchUpdate: (dispatchObj: any) => dispatch(dispatchObj),
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Dashboard));
+Dashboard.contextType = Context;

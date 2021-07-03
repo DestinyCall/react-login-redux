@@ -39,5 +39,6 @@ export class AppService {
       password,
     };
     return axios.post(`${this._uri}/merchants/login`, reqBody);
+    
   }
 }

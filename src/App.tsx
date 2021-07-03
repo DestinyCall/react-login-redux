@@ -7,6 +7,7 @@ import Landing from './components/landing/Landing';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Auth from './components/auth/Auth';
+import Dashboard from 'components/dashboard/Dashboard';
 
 export default class App extends Component {
   render() {
@@ -20,6 +21,7 @@ export default class App extends Component {
                 <Switch>
                   <Route exact path='/' component={Landing} />
                   <Route exact path='/login' component={Auth} />
+                  <Route exact path='/dashboard' component={Dashboard} />
                 </Switch>
               </div>
               <Footer />

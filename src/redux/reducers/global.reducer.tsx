@@ -16,9 +16,8 @@ const globalReducer = (
       currentState = {
         merchant: action.payload,
       };
-
       saveCurrentState(currentState);
-      return logReduxState(state, currentState, action);
+      return logReduxState(prevState, currentState, action);
     default:
       return state;
   }
@@ -33,6 +32,7 @@ const logReduxState = (
   currentState: IGlobalState,
   action: globalActions.Actions
 ) => {
+  //console.info(currentState);
   return currentState;
 };
 
