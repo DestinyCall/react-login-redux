@@ -7,7 +7,7 @@ import { IGlobalState } from 'redux/states/global.state';
 class Dashboard extends Component<any, any> {
   render() {
     const { state } = this.context;
-    console.log(state.merchant);
+    console.log(this.props.merchant);
     return (
       <div className='dashboard'>
         <div id='dashdata'>Dashboard</div>
@@ -30,4 +30,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRouter(Dashboard));
+
 Dashboard.contextType = Context;
