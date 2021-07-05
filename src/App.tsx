@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import './App.scss';
-import Store from './redux/store.provider';
+import 'App.scss';
+import Store from 'redux/store.provider';
 
-import Landing from './components/landing/Landing';
-import Header from './components/header/Header';
-import Footer from './components/footer/Footer';
-import Auth from './components/auth/Auth';
+import Landing from 'components/landing/Landing';
+import Header from 'components/header/Header';
+import Footer from 'components/footer/Footer';
+import Auth from 'components/auth/Auth';
 import Dashboard from 'components/dashboard/Dashboard';
 
 export default class App extends Component {

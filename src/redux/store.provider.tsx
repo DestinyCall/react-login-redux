@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, Dispatch } from 'react';
-import globalReducer from './reducers/global.reducer';
-import { IGlobalState } from './states/global.state';
+import globalReducer from 'redux/reducers/global.reducer';
+import { IGlobalState } from 'redux/states/global.state';
 import { initialGlobalState as IGState } from 'redux/states/initial-global-state.provider';
 
 const initialGlobalState: IGlobalState = IGState;

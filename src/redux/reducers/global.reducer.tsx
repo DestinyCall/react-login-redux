@@ -1,5 +1,5 @@
-import * as globalActions from '../actions/global.actions';
-import { IGlobalState } from '../states/global.state';
+import * as globalActions from 'redux/actions/global.actions';
+import { IGlobalState } from 'redux/states/global.state';
 import { AppService } from 'services/app.service';
 
 const globalReducer = (

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { IGlobalState } from '../redux/states/global.state';
+import { IGlobalState } from 'redux/states/global.state';
 
 export class AppService {
   private static _instance: AppService;
